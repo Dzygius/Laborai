@@ -1,0 +1,294 @@
+Laikas / 3
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+
+class laikas {
+private:
+	int Q, H, M, S;
+public:
+	laikas() : Q(0), H(0),M(0),S(0){}
+	laikas(int a) 
+	{ 
+		Q = a;
+	}
+	laikas(int h, int m, int s) : H(h), M(m), S(s){}
+	~laikas() {}
+	int Sekundes() {
+		Q = S + M * 60 + H * 3600;
+		return Q;
+	}
+	void trecdalislaiko() {
+		H = Q / 3600;
+		M = (Q - H * 3600) / 60;
+		S = Q - H * 3600 - M * 60;
+	}
+	laikas operator/(const int other) const
+	{
+		return laikas(Q / other);
+	}
+	void isvedimas() {
+		if (H >= 10) {
+			if (M >= 10) {
+				if (S >= 10) {
+					std::cout << H << ":" << M << ":" << S << std::endl;
+				}
+				else {
+					std::cout << H << ":" << M << ":0" << S << std::endl;
+				}
+			}
+			else {
+				if (S >= 10) {
+					std::cout << H << ":0" << M << ":" << S << std::endl;
+				}
+				else {
+					std::cout << H << ":0" << M << ":0" << S << std::endl;
+				}
+			}
+		}
+		else {
+			if (M >= 10) {
+				if (S >= 10) {
+					std::cout << 0 << H << ":" << M << ":" << S << std::endl;
+				}
+				else {
+					std::cout << 0 << H << ":" << M << ":0" << S << std::endl;
+				}
+			}
+			else {
+				if (S >= 10) {
+					std::cout << 0 << H << ":0" << M << ":" << S << std::endl;
+				}
+				else {
+					std::cout << 0 << H << ":0" << M << ":0" << S << std::endl;
+				}
+			}
+		}
+	}
+	
+};
+
+int main() {
+	int n, h, m, s;
+	std::cin >> n >> h >> m >> s;
+	laikas laikas(h,m,s);
+	for (int i = 0; i < n; i++) {
+		laikas.Sekundes();
+		laikas = laikas / 3;
+		laikas.trecdalislaiko();
+		laikas.isvedimas();
+	}
+	return 0;
+}
+
+laiko sumavimas
+
+#include <istream>
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+class laikas {
+private:
+	double H, M, S, Sum;
+public:
+	laikas() : H(0),M(0),S(0),Sum(0){}
+	laikas(int temp)
+	{
+	     Sum = temp;
+    }
+	~laikas(){}
+	void ivedimas() {
+		cin >> H >> M >> S;
+	}
+	int konvertavimas() {
+		Sum = H * 3600 + M * 60 + S;
+		return Sum;
+	}
+	int getshit()
+	{
+	    return Sum;
+	}
+
+		laikas operator+( const laikas& t )const
+	{
+		return laikas( (*this).Sum + t.Sum );
+	}
+};
+
+int main() {
+	laikas knisa[101];
+	int n, tarpinis = -100000;
+	int h=0, m=0, s=0;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		knisa[i].ivedimas();
+		knisa[i].konvertavimas();
+	}
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 1; j < n; j++) {
+			if (i != j) {
+				laikas galas = knisa[i] + knisa[j];
+				int tempskirtumas = galas.getshit();
+				if (tempskirtumas >= 86400) {
+			if (tempskirtumas - 86400 >= tarpinis) {
+				tarpinis = tempskirtumas - 86400;
+			}
+		}
+		else if (tempskirtumas > tarpinis) {
+			tarpinis = tempskirtumas;
+		}
+			}
+		}
+	}
+	    h = tarpinis / 3600;
+		m = (tarpinis - h * 3600) / 60;
+		s = tarpinis - h * 3600 - m * 60;
+		if (h >= 10) {
+			if (m >= 10) {
+				if (s >= 10) {
+					std::cout << h << ":" << m << ":" << s << std::endl;
+				}
+				else {
+					std::cout << h << ":" << m << ":0" << s << std::endl;
+				}
+			}
+			else {
+				if (s >= 10) {
+					std::cout << h << ":0" << m << ":" << s << std::endl;
+				}
+				else {
+					std::cout << h << ":0" << m << ":0" << s << std::endl;
+				}
+			}
+		}
+		else {
+			if (m >= 10) {
+				if (s >= 10) {
+					std::cout << 0 << h << ":" << m << ":" << s << std::endl;
+				}
+				else {
+					std::cout << 0 << h << ":" << m << ":0" << s << std::endl;
+				}
+			}
+			else {
+				if (s >= 10) {
+					std::cout << 0 << h << ":0" << m << ":" << s << std::endl;
+				}
+				else {
+					std::cout << 0 << h << ":0" << m << ":0" << s << std::endl;
+				}
+			}
+		}
+}
+
+laiko skirtumas
+
+#include <istream>
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+class laikas {
+private:
+	double H, M, S, Sum;
+public:
+	laikas() : H(0), M(0), S(0), Sum(0) {}
+	laikas(int temp) : H(0), M(0), S(0), Sum(0)
+	{
+		Sum = temp;
+	}
+	~laikas() {}
+	void ivedimas() {
+		cin >> H >> M >> S;
+	}
+	int konvertavimas() {
+		Sum = H * 3600 + M * 60 + S;
+		return Sum;
+	}
+	int getSec()
+	{
+		return Sum;
+	}
+
+	laikas operator-(const laikas& t)const
+	{
+		return laikas((*this).Sum - t.Sum);
+	}
+	laikas operator+(const laikas& t)const
+	{
+		return laikas((*this).Sum + t.Sum);
+	}
+};
+
+int main() {
+	laikas pirmas[101];
+	int n, tarpinis = 10000001;
+	int h = 0, m = 0, s = 0;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		pirmas[i].ivedimas();
+		pirmas[i].konvertavimas();
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (i != j) {
+				laikas pabaiga = pirmas[i] - pirmas[j];
+				laikas bandom = pirmas[i] + pirmas[j];
+				int tempskirtumas = pabaiga.getSec();
+				int sumasa = bandom.getSec();
+				if (tempskirtumas < 0) {
+					if (86400 - pirmas[j].getSec() + pirmas[i].getSec() < tarpinis) {
+						tarpinis = 86400 - pirmas[j].getSec() + pirmas[i].getSec();
+					}
+				}
+				else if (tempskirtumas < tarpinis) {
+					tarpinis = tempskirtumas;
+				}
+			}
+		}
+	}
+	h = tarpinis / 3600;
+	m = (tarpinis - h * 3600) / 60;
+	s = tarpinis - h * 3600 - m * 60;
+	if (h >= 10) {
+		if (m >= 10) {
+			if (s >= 10) {
+				std::cout << h << ":" << m << ":" << s << std::endl;
+			}
+			else {
+				std::cout << h << ":" << m << ":0" << s << std::endl;
+			}
+		}
+		else {
+			if (s >= 10) {
+				std::cout << h << ":0" << m << ":" << s << std::endl;
+			}
+			else {
+				std::cout << h << ":0" << m << ":0" << s << std::endl;
+			}
+		}
+	}
+	else {
+		if (m >= 10) {
+			if (s >= 10) {
+				std::cout << 0 << h << ":" << m << ":" << s << std::endl;
+			}
+			else {
+				std::cout << 0 << h << ":" << m << ":0" << s << std::endl;
+			}
+		}
+		else {
+			if (s >= 10) {
+				std::cout << 0 << h << ":0" << m << ":" << s << std::endl;
+			}
+			else {
+				std::cout << 0 << h << ":0" << m << ":0" << s << std::endl;
+			}
+		}
+	}
+}
